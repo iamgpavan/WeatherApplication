@@ -11,5 +11,5 @@ public interface WeatherDataRepository extends MongoRepository<WeatherData, Stri
     List<WeatherData> findByCity(String cityName);
     Optional<WeatherData> findByCityAndDate(String city, Date date);
     List<WeatherData> findByCityAndDateBetween(String city, Date startDate, Date endDate);
-    void deleteByCity(String cityName);
+    long deleteByCity(String cityName);
 }

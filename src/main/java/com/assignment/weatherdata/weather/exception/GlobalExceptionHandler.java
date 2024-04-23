@@ -25,11 +25,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(CityNotFoundException.class)
+    public ResponseEntity<Object> handleCityNotFoundException(CityNotFoundException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(PathVariableMissingException.class)
     public ResponseEntity<Map<String, Object>> handlePathVariableMissingException(PathVariableMissingException ex) {
         Map<String, Object> response = new HashMap<>();
         response.put("message", ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-
 }

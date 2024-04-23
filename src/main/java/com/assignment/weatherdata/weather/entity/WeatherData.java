@@ -21,16 +21,4 @@ public class WeatherData {
     private Date date;
     public WeatherData() {
     }
-
-//    // Add a custom constructor to generate compound key
-//    public WeatherData(String city, Date date) {
-//        this.city = city;
-//        this.date = date;
-//        this.id = generateId(city, date);
-//    }
-//
-//    // Generate compound key
-//    private String generateId(String city, Date date) {
-//        return city + "_" + date;
-//    }
 }

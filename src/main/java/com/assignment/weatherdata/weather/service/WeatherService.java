@@ -16,4 +16,5 @@ public interface WeatherService {
     ResponseEntity<HashMap<String, String>> deleteWeatherByCity(String cityName);
     List<WeatherDataDTO> getWeatherDataByCityAndDateRange(String city, Date startDate, Date endDate);
     ResponseEntity<List<WeatherDataDTO>>  getWeatherByCityAndSort(String city, String sortBy, String order);
+    WeatherDataDTO getWeatherForecast(String city, String apiUrl, String apiKey);
 }

@@ -4,11 +4,15 @@ import com.assignment.weatherdata.weather.dto.WeatherDataDTO;
 import com.assignment.weatherdata.weather.entity.WeatherData;
 import com.assignment.weatherdata.weather.exception.PathVariableMissingException;
 import com.assignment.weatherdata.weather.service.WeatherService;
+import org.hibernate.boot.model.source.spi.SizeSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,12 +21,15 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/weather")
 public class WeatherController {
-    //    private final WeatherService weatherService;
-//    public WeatherController(WeatherService weatherService) {
-//        this.weatherService = weatherService;
-//    }
+
     @Autowired
     private WeatherService weatherService;
+
+    @Value("${weather.api.key}")
+    private String apiKey;
+
+    @Value("${weather.api.url}")
+    private String apiUrl;
 
     public WeatherController(WeatherService weatherService) {
         this.weatherService = weatherService;
@@ -89,5 +96,10 @@ public class WeatherController {
             @RequestParam(value = "sort_by", required = false) String sortBy,
             @RequestParam(value = "order", required = false, defaultValue = "asc") String order) {
         return weatherService.getWeatherByCityAndSort(city, sortBy, order);
+    }
+
+    @GetMapping("/{city}/forecast")
+    public WeatherDataDTO getWeatherForecast(@PathVariable String city) {
+        return weatherService.getWeatherForecast(city, apiUrl, apiKey);
     }
 }
